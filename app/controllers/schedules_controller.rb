@@ -10,7 +10,7 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    @schedule = Schedule.new(params.require(:schedule).permit(:title, :start, :end, :all, :memo))
+    @schedule = Schedule.new(schedule_params)
     if @schedule.save
       flash[:notice] = "予定を新規登録しました"
       redirect_to schedules_path
@@ -45,4 +45,8 @@ class SchedulesController < ApplicationController
   end
 end
 
+private
 
+def schedule_params
+  params.require(:schedule).permit(:title, :start, :end, :all, :memo)
+end
